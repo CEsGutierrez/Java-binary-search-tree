@@ -53,7 +53,7 @@ public class TreeTest {
 
   @Test
   public void viewTree() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     List<Integer> expectedList = new ArrayList<Integer>() {{
       add(0);
       add(-5);
@@ -63,8 +63,18 @@ public class TreeTest {
   }
 
   @Test
+  public void addNodeToEmptyTree() throws Exception {
+    Tree testTree = new Tree();
+    Integer expectedValue = 1;
+
+    Node newRoot = new Node(expectedValue);
+    testTree.add(newRoot);
+    assertEquals(expectedValue, testTree.getRoot().getValue());
+  }
+
+  @Test
   public void addNode() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     List<Integer> expectedList = new ArrayList<Integer>() {{
       add(0);
       add(-5);
@@ -80,7 +90,7 @@ public class TreeTest {
 
   @Test
   public void findsIncludedNode() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     Node expectedNode = testTree.getRoot().getRightNode();
 
     assertTrue(testTree.includes(expectedNode));
@@ -88,13 +98,13 @@ public class TreeTest {
 
   @Test
   public void findsIncludedValue() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     assertTrue(testTree.includes(5));
   }
 
   @Test
   public void doesNotFindExcludedNode() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     Node unexpectedNode = new Node(1);
 
     assertFalse(testTree.includes(unexpectedNode));
@@ -102,7 +112,7 @@ public class TreeTest {
 
   @Test
   public void doesNotFindExcludedValue() throws Exception {
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     assertFalse(testTree.includes(2));
   }
 
@@ -110,7 +120,7 @@ public class TreeTest {
   public void throwsExceptionIfSearchingEmptyNode() throws Exception {
     thrown.expect(Exception.class);
 
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     Node unexpectedNode = new Node();
 
     testTree.includes(unexpectedNode);
@@ -120,20 +130,103 @@ public class TreeTest {
   public void findsNullValue() throws Exception {
     thrown.expect(Exception.class);
 
-    Tree testTree = createTestTree();
+    Tree testTree = createShortTestTree();
     Integer nullInt = null;
 
     testTree.includes(nullInt);
   }
 
-  private Tree createTestTree() throws Exception {
-    Node root = new Node(0);
-    Node right = new Node (5);
-    Node left = new Node (-5);
+  @Test
+  public void getDepthEmpty() {
+    Node root = new Node();
+    Tree testTree = new Tree(root);
+    int expectedDepth = 1;
 
-    Tree tree = new Tree(root);
-    tree.getRoot().assignLeft(left);
-    tree.getRoot().assignRight(right);
+    assertEquals(expectedDepth, testTree.getDepth());
+  }
+
+  @Test
+  public void getDepthMultiLevel() throws Exception {
+    Tree shortTree = createLongTestTree();
+    Node newNode = new Node(2);
+    shortTree.add(newNode);
+    int expectedDepth = 4;
+
+    assertEquals(expectedDepth, shortTree.getDepth());
+  }
+
+  @Test
+  public void doesNotGetDepthTreeSansRoot() {
+    int expectedDepth = 0;
+
+    Tree testTree = new Tree();
+    assertEquals(expectedDepth,testTree.getDepth());
+  }
+
+  @Test
+  public void removesMiddleNode() throws Exception {
+    List<Integer> expectedValues = new ArrayList<>() {{
+      add(0);
+      add(-1);
+      add(5);
+      add(-8);
+      add(2);
+      add(7);
+      add(17);
+    }};
+
+    Tree testTree = createLongTestTree();
+    testTree.removeNode(-5);
+    assertEquals(expectedValues, testTree.view());
+  }
+
+  @Test
+  public void removesLeaf() throws Exception {
+    List<Integer> expectedValues = new ArrayList<>() {{
+      add(0);
+      add(-5);
+      add(5);
+      add(-8);
+      add(2);
+      add(7);
+      add(17);
+    }};
+
+    Tree testTree = createLongTestTree();
+    testTree.removeNode(-1);
+    assertEquals(expectedValues, testTree.view());
+  }
+
+
+
+
+
+
+
+
+
+  private Tree createShortTestTree() throws Exception {
+    Tree tree = new Tree() {
+      {
+        add(new Node(0));
+        add(new Node(-5));
+        add(new Node(5));
+      }};
+
+    return tree;
+  }
+
+  private Tree createLongTestTree() throws Exception {
+    Tree tree = new Tree() {{
+      add(new Node(0));
+      add(new Node(-5));
+      add(new Node(5));
+      add(new Node(-8));
+      add(new Node(-1));
+      add(new Node(2));
+      add(new Node(7));
+      add(new Node(17));
+    }};
 
     return tree;
   }

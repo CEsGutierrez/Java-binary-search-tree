@@ -48,6 +48,11 @@ public class Tree {
       return;
     }
 
+    if (root == null) {
+      assignRoot(newNode);
+      return;
+    }
+
     List<Node> queue = new ArrayList<>();
     queue.add(root);
     Integer targetValue = newNode.getValue(); // used for legibility
@@ -121,15 +126,64 @@ public class Tree {
 
   }
 
+  public int getDepth() {
+    if (root == null) {
+      return 0;
+    } else {
+      return getDepthHelper(root);
+    }
+  }
 
-  // includes node
+  // recursive helper method
+  private int getDepthHelper(Node node) {
+    if (node == null) {
+      return 0;
+    }
 
-  // get depth
+    int leftDepth = getDepthHelper(node.getLeftNode());
+    int rightDepth = getDepthHelper(node.getRightNode());
 
-  // remove node
+    if (leftDepth > rightDepth) {
+      return (leftDepth + 1);
+    } else {
+      return (rightDepth + 1);
+    }
+  }
 
-  // view entire tree level by level
+  public void removeNode(Node targetNode) throws Exception {
+    removeNode(targetNode.getValue());
 
+  }
 
+  public void removeNode(Integer targetValue) throws Exception {
+    if (targetValue == null) {
+      throw new Exception (
+          "Cannot search for null value");
+    }
+
+    List<Node> queue = new ArrayList<>();
+    queue.add(root);
+
+    while (queue.size() > 0) {
+      Node temp = queue.remove(0);
+
+      if (temp.getLeftNode() != null && temp.getLeftNode().getValue() != null) {
+        if (targetValue == temp.getLeftNode().getValue()) {
+          temp.assignLeft(null);
+          return;
+        } else {
+            queue.add(temp.getLeftNode());
+        }
+      }
+      if (temp.getRightNode() != null && temp.getRightNode().getValue() != null) {
+        if (targetValue == temp.getRightNode().getValue()) {
+          temp.assignRight(null);
+          return;
+        } else {
+          queue.add(temp.getRightNode());
+        }
+      }
+    }
+  }
 
 }
