@@ -9,7 +9,7 @@ import trees.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TreeTest {
 
@@ -76,7 +76,54 @@ public class TreeTest {
     testTree.add(newNode);
 
     assertEquals(expectedList, testTree.view());
+  }
 
+  @Test
+  public void findsIncludedNode() throws Exception {
+    Tree testTree = createTestTree();
+    Node expectedNode = testTree.getRoot().getRightNode();
+
+    assertTrue(testTree.includes(expectedNode));
+  }
+
+  @Test
+  public void findsIncludedValue() throws Exception {
+    Tree testTree = createTestTree();
+    assertTrue(testTree.includes(5));
+  }
+
+  @Test
+  public void doesNotFindExcludedNode() throws Exception {
+    Tree testTree = createTestTree();
+    Node unexpectedNode = new Node(1);
+
+    assertFalse(testTree.includes(unexpectedNode));
+  }
+
+  @Test
+  public void doesNotFindExcludedValue() throws Exception {
+    Tree testTree = createTestTree();
+    assertFalse(testTree.includes(2));
+  }
+
+  @Test
+  public void throwsExceptionIfSearchingEmptyNode() throws Exception {
+    thrown.expect(Exception.class);
+
+    Tree testTree = createTestTree();
+    Node unexpectedNode = new Node();
+
+    testTree.includes(unexpectedNode);
+  }
+
+  @Test
+  public void findsNullValue() throws Exception {
+    thrown.expect(Exception.class);
+
+    Tree testTree = createTestTree();
+    Integer nullInt = null;
+
+    testTree.includes(nullInt);
   }
 
   private Tree createTestTree() throws Exception {
