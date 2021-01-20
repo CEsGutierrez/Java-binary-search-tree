@@ -5,20 +5,6 @@ This is a practice exercise in implementing a binary tree.
 It's purpose is to practice algorithms and data structures, and TDD in Java.
 
 # To Use
-This exercise uses JShell, which implements a read-evaluate-print loop (REPL) that is accessible through CLI. 
+This exercise uses JShell (https://docs.oracle.com/javase/9/jshell/introduction-jshell.htm#JSHEL-GUID-630F27C8-1195-4989-9F6B-2C51D46F52C8), which implements a read-evaluate-print loop (REPL) that is accessible through CLI. 
 
-1) Navigate to 'Java-binary-tree/trees' directory
-
-(compilations have to happen in order due to imports)
-
-2) Compile Node 
->`$javac -d . Node.java`
-
-3) Compile Tree
->`$javac -d . Tree.java`
-
-4) Compile TreeTest
->`$javac -d . TreeTest.java`
-
-4) To run from CLI:
->`$ java trees.TreeTest`
+It is tested using the intelliJ debugger to run JUnit tests
