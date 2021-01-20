@@ -6,14 +6,15 @@ import org.junit.rules.ExpectedException;
 import trees.Node;
 import trees.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class TreeTest {
 
-
   @Rule
   public ExpectedException thrown = ExpectedException.none();
-
 
   @Test
   public void instantiatedEmpty() {
@@ -51,8 +52,30 @@ public class TreeTest {
   }
 
   @Test
+  public void viewTree() throws Exception {
+    Tree testTree = createTestTree();
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(0);
+      add(-5);
+      add(5);
+    }};
+    assertEquals(expectedList, testTree.view());
+  }
+
+  @Test
   public void addNode() throws Exception {
-    createTestTree();
+    Tree testTree = createTestTree();
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(0);
+      add(-5);
+      add(5);
+      add(2);
+    }};
+
+    Node newNode = new Node(2);
+    testTree.add(newNode);
+
+    assertEquals(expectedList, testTree.view());
 
   }
 
@@ -67,5 +90,4 @@ public class TreeTest {
 
     return tree;
   }
-
 }

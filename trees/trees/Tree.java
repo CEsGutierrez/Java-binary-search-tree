@@ -1,19 +1,19 @@
 package trees;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Basic binary tree implementation
+ * Basic binary search tree implementation
  * */
 
 public class Tree {
   private Node root;
 
-  public Tree() {
-    System.out.println("New tree instantiated");
-  }
+  public Tree() {}
 
   public Tree(Node rootNode) {
     this.root = rootNode;
-    System.out.println("New tree instantiated, root: " + rootNode + " with value: " + rootNode.getValue());
   }
 
   public Node getRoot() {
@@ -24,7 +24,40 @@ public class Tree {
     this.root = rootNode;
   }
 
-  // add node
+  public void add(Node newNode) throws Exception {
+    if (newNode.getValue().equals(null)) { // can't add a node without a value
+      return;
+    }
+
+    List<Node> queue = new ArrayList<>();
+    queue.add(root);
+    Integer targetValue = newNode.getValue(); // used for legibility
+
+    while (queue.size() > 0) {
+      Node temp = queue.remove(0);
+      Integer tempValue = temp.getValue();
+
+      // value already there, no action required
+      if (tempValue.equals(targetValue)) {
+        return;
+      } else if (targetValue > tempValue) {
+        if (temp.getRightNode() != null) {
+          queue.add(temp.getRightNode());
+        } else {
+          temp.assignRight(newNode);
+          return;
+        }
+      } else { // implied that targetValue < tempValue
+        if (temp.getLeftNode() != null) {
+          queue.add(temp.getLeftNode());
+        } else {
+          temp.assignLeft(newNode);
+          return;
+        }
+      }
+    }
+  }
+
 
   // search for node
 
@@ -33,4 +66,26 @@ public class Tree {
   // get depth
 
   // remove node
+
+  // view entire tree level by level
+
+  public List<Integer> view() {
+    List<Integer> valueCollection = new ArrayList<>();
+
+    List<Node> queue = new ArrayList<>();
+    queue.add(root);
+
+    while (queue.size() > 0) {
+      Node temp = queue.remove(0);
+      if (temp.getLeftNode() != null) {
+        queue.add(temp.getLeftNode());
+      }
+      if (temp.getRightNode() != null) {
+        queue.add(temp.getRightNode());
+      }
+      valueCollection.add(temp.getValue());
+    }
+    return valueCollection;
+  }
+
 }

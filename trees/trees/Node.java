@@ -10,13 +10,10 @@ public class Node {
   private Node rightNode;
   private Node leftNode;
 
-  public Node() {
-    System.out.println("New node instantiated");
-  }
+  public Node() {}
 
   public Node(Integer value) {
     this.value = value;
-    System.out.println("New node instantiated with value: " + value);
   }
 
   public void assignValue(Integer value) {
