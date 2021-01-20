@@ -2,7 +2,7 @@ package trees;
 
 public class Node {
 
-  private String value;
+  private int value;
   private Node rightNode;
   private Node leftNode;
 
@@ -10,12 +10,12 @@ public class Node {
     System.out.println("New node instantiated");
   }
 
-  public Node(String value) {
+  public Node(int value) {
     this.value = value;
     System.out.println("New node instantiated with value: " + value);
   }
 
-  public void assignValue(String value) {
+  public void assignValue(int value) {
     this.value = value;
   }
 
@@ -41,7 +41,7 @@ public class Node {
 
   }  
 
-  public String getValue() {
+  public int getValue() {
     return this.value;
   }
 

@@ -14,7 +14,7 @@ public class NodeTest {
 
 
   @Test
-  public void nodeInstantiatedEmpty() {
+  public void instantiatedEmpty() {
     Node testNode = new Node();
     assertEquals(null,testNode.getValue());
     assertEquals(null, testNode.getLeftNode());
@@ -22,8 +22,8 @@ public class NodeTest {
   }
 
   @Test
-  public void nodeInstantiatedWithInitialValue() {
-    String initialValue = "0TS";
+  public void instantiatedWithInitialValue() {
+    int initialValue = 0;
     Node testNode = new Node(initialValue);
     assertEquals( initialValue, testNode.getValue());
     assertEquals(null, testNode.getLeftNode());
@@ -31,9 +31,17 @@ public class NodeTest {
   }
 
   @Test public void assignValue() {
-    String initialValue = "1TS";
+    Node testNode = new Node();
+    int assignedValue = 2;
+
+    testNode.assignValue(assignedValue);
+    assertEquals( assignedValue, testNode.getValue());
+  }
+
+  @Test public void reassignValue() {
+    int initialValue = 1;
     Node testNode = new Node(initialValue);
-    String assignedValue = "2TS";
+    int assignedValue = 3;
 
     testNode.assignValue(assignedValue);
     assertEquals( assignedValue, testNode.getValue());
