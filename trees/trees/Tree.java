@@ -1,5 +1,9 @@
 package trees;
 
+/**
+ * Basic binary tree implementation
+ * */
+
 public class Tree {
   private Node root;
 

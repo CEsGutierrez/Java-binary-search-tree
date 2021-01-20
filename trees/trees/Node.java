@@ -1,8 +1,12 @@
 package trees;
 
+/** Basic binary tree node implementation
+ * Uses Integer for value to be able to have a null value to diferentiate it from a value of 0
+ */
+
 public class Node {
 
-  private int value;
+  private Integer value;
   private Node rightNode;
   private Node leftNode;
 
@@ -10,12 +14,12 @@ public class Node {
     System.out.println("New node instantiated");
   }
 
-  public Node(int value) {
+  public Node(Integer value) {
     this.value = value;
     System.out.println("New node instantiated with value: " + value);
   }
 
-  public void assignValue(int value) {
+  public void assignValue(Integer value) {
     this.value = value;
   }
 
@@ -41,7 +45,7 @@ public class Node {
 
   }  
 
-  public int getValue() {
+  public Integer getValue() {
     return this.value;
   }
 

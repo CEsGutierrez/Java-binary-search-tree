@@ -23,7 +23,7 @@ public class NodeTest {
 
   @Test
   public void instantiatedWithInitialValue() {
-    int initialValue = 0;
+    Integer initialValue = 0;
     Node testNode = new Node(initialValue);
     assertEquals( initialValue, testNode.getValue());
     assertEquals(null, testNode.getLeftNode());
@@ -32,16 +32,16 @@ public class NodeTest {
 
   @Test public void assignValue() {
     Node testNode = new Node();
-    int assignedValue = 2;
+    Integer assignedValue = 2;
 
     testNode.assignValue(assignedValue);
     assertEquals( assignedValue, testNode.getValue());
   }
 
   @Test public void reassignValue() {
-    int initialValue = 1;
+    Integer initialValue = 1;
     Node testNode = new Node(initialValue);
-    int assignedValue = 3;
+    Integer assignedValue = 3;
 
     testNode.assignValue(assignedValue);
     assertEquals( assignedValue, testNode.getValue());
