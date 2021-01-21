@@ -89,18 +89,43 @@ public class TreeTest {
   }
 
   @Test
-  public void addAndOrderNodes() throws Exception {
+  public void addOrdersNodes() throws Exception {
     Tree testTree = new Tree();
 
     testTree.add(new Node (0));
     testTree.add(new Node (-5));
     testTree.add(new Node (2));
     testTree.add(new Node (5));
+    testTree.add(new Node (1));
 
     List<Integer> expectedList = new ArrayList<Integer>() {{
       add(0);
       add(-5);
+      add(2);
+      add(1);
       add(5);
+    }};
+
+    Node newNode = new Node(2);
+    testTree.add(newNode);
+
+    assertEquals(expectedList, testTree.view());
+  }
+
+  @Test
+  public void addIgnoresDuplicates() throws Exception {
+    Tree testTree = new Tree();
+
+    testTree.add(new Node (0));
+    testTree.add(new Node (-5));
+    testTree.add(new Node (2));
+    testTree.add(new Node (2));
+    testTree.add(new Node (2));
+    testTree.add(new Node (2));
+
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(0);
+      add(-5);
       add(2);
     }};
 
