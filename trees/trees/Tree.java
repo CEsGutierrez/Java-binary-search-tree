@@ -197,10 +197,16 @@ public class Tree {
         targetNode.assignRight(null);
         return;
       }
+    } else {
+      removeNodeTwoChildren(targetNode, direction);
     }
 
     //it has two children, substitute with minimum value from right sub tree
     //explanation: http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
+
+  }
+
+  private void removeNodeTwoChildren(Node targetNode, String side) throws Exception {
     Node successor = targetNode.getRightNode();
     Node parentOfSuccessor = targetNode;
 
@@ -210,15 +216,25 @@ public class Tree {
     }
 
     targetNode.assignValue(successor.getValue());
-    parentOfSuccessor.assignRight(null);
+
+    if (side.equals("RIGHT")) {
+      parentOfSuccessor.assignLeft(null);
+    } else {
+      parentOfSuccessor.assignRight(null);
+    }
 
     return;
   }
+
 
   public void removeNode(Integer targetValue) throws Exception {
     if (targetValue == null) {
       throw new Exception (
           "Cannot search for null value");
+    }
+
+    if (targetValue == root.getValue()) {
+      removeNodeTwoChildren(root, "RIGHT");
     }
 
     List<Node> queue = new ArrayList<>();
