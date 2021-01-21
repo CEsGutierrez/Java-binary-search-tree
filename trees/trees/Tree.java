@@ -257,4 +257,10 @@ public class Tree {
     }
   }
 
+  //todo inorder traversal
+
+  //todo preorder traversal
+
+  //todo postorder traversal
+
 }
