@@ -164,6 +164,23 @@ public class TreeTest {
   }
 
   @Test
+  public void removesLeaf() throws Exception {
+    List<Integer> expectedValues = new ArrayList<>() {{
+      add(0);
+      add(-5);
+      add(5);
+      add(-8);
+      add(2);
+      add(7);
+      add(17);
+    }};
+
+    Tree testTree = createLongTestTree();
+    testTree.removeNode(-1);
+    assertEquals(expectedValues, testTree.view());
+  }
+
+  @Test
   public void removesMiddleNode() throws Exception {
     List<Integer> expectedValues = new ArrayList<>() {{
       add(0);
@@ -181,29 +198,23 @@ public class TreeTest {
   }
 
   @Test
-  public void removesLeaf() throws Exception {
+  public void removeRootNode() throws Exception {
+
     List<Integer> expectedValues = new ArrayList<>() {{
-      add(0);
+      add(2);
       add(-5);
       add(5);
       add(-8);
-      add(2);
+      add(-1);
       add(7);
       add(17);
     }};
 
     Tree testTree = createLongTestTree();
-    testTree.removeNode(-1);
+    testTree.removeNode(0);
     assertEquals(expectedValues, testTree.view());
+
   }
-
-
-
-
-
-
-
-
 
   private Tree createShortTestTree() throws Exception {
     Tree tree = new Tree() {

@@ -152,7 +152,67 @@ public class Tree {
 
   public void removeNode(Node targetNode) throws Exception {
     removeNode(targetNode.getValue());
+  }
 
+  private void removeChildNode(Node parentNode, String direction) throws Exception {
+
+    Node targetNode;
+    if (direction == "RIGHT") {
+      targetNode = parentNode.getRightNode();
+    } else {
+      targetNode = parentNode.getLeftNode();
+    }
+
+    // it's a leaf, can be safely deleted
+    if (targetNode.getLeftNode() == null && targetNode.getRightNode() == null) {
+      if (direction == "RIGHT") {
+        parentNode.assignRight(null);
+      } else {
+        parentNode.assignLeft( null);
+      }
+      return;
+    }
+
+    // if it has one child, substitute
+    if(targetNode.getLeftNode() == null || targetNode.getRightNode() == null) {
+
+      // L side
+      if (parentNode.getLeftNode().equals(targetNode) && targetNode.getLeftNode() != null) {
+        parentNode.assignLeft(targetNode.getLeftNode());
+        targetNode.assignLeft(null);
+        return;
+      } else if (parentNode.getLeftNode().equals(targetNode)) {
+        parentNode.assignLeft(targetNode.getRightNode());
+        targetNode.assignRight(null);
+        return;
+      }
+
+      // R side
+      else if (targetNode.getLeftNode() != null) {
+        parentNode.assignRight(targetNode.getLeftNode());
+        targetNode.assignLeft(null);
+        return;
+      } else {
+        parentNode.assignRight(targetNode.getRightNode());
+        targetNode.assignRight(null);
+        return;
+      }
+    }
+
+    //it has two children, substitute with minimum value from right sub tree
+    //explanation: http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
+    Node successor = targetNode.getRightNode();
+    Node parentOfSuccessor = targetNode;
+
+    while (successor.getLeftNode() != null) {
+      parentOfSuccessor = successor;
+      successor = successor.getLeftNode();
+    }
+
+    targetNode.assignValue(successor.getValue());
+    parentOfSuccessor.assignRight(null);
+
+    return;
   }
 
   public void removeNode(Integer targetValue) throws Exception {
@@ -169,16 +229,14 @@ public class Tree {
 
       if (temp.getLeftNode() != null && temp.getLeftNode().getValue() != null) {
         if (targetValue == temp.getLeftNode().getValue()) {
-          temp.assignLeft(null);
-          return;
+          removeChildNode(temp, "LEFT");
         } else {
             queue.add(temp.getLeftNode());
         }
       }
       if (temp.getRightNode() != null && temp.getRightNode().getValue() != null) {
         if (targetValue == temp.getRightNode().getValue()) {
-          temp.assignRight(null);
-          return;
+          removeChildNode(temp, "RIGHT");
         } else {
           queue.add(temp.getRightNode());
         }
