@@ -198,14 +198,13 @@ public class Tree {
         return;
       }
     } else {
+      // it has two children, use helper
       removeNodeTwoChildren(targetNode, direction);
     }
-
-    //it has two children, substitute with minimum value from right sub tree
-    //explanation: http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
-
   }
 
+  // helper method that substitutes target node with the  minimum value from right sub tree
+  //explanation: http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/BST-delete2.html
   private void removeNodeTwoChildren(Node targetNode, String side) throws Exception {
     Node successor = targetNode.getRightNode();
     Node parentOfSuccessor = targetNode;
@@ -222,10 +221,8 @@ public class Tree {
     } else {
       parentOfSuccessor.assignRight(null);
     }
-
     return;
   }
-
 
   public void removeNode(Integer targetValue) throws Exception {
     if (targetValue == null) {

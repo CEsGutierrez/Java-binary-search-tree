@@ -89,6 +89,30 @@ public class TreeTest {
   }
 
   @Test
+  public void addAndOrderNodes() throws Exception {
+    Tree testTree = new Tree();
+
+    testTree.add(new Node (0));
+    testTree.add(new Node (-5));
+    testTree.add(new Node (2));
+    testTree.add(new Node (5));
+
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(0);
+      add(-5);
+      add(5);
+      add(2);
+    }};
+
+    Node newNode = new Node(2);
+    testTree.add(newNode);
+
+    assertEquals(expectedList, testTree.view());
+  }
+
+
+
+  @Test
   public void findsIncludedNode() throws Exception {
     Tree testTree = createShortTestTree();
     Node expectedNode = testTree.getRoot().getRightNode();
