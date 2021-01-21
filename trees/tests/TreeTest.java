@@ -59,7 +59,7 @@ public class TreeTest {
       add(-5);
       add(5);
     }};
-    assertEquals(expectedList, testTree.view());
+    assertEquals(expectedList, testTree.levelOrderView());
   }
 
   @Test
@@ -85,7 +85,7 @@ public class TreeTest {
     Node newNode = new Node(2);
     testTree.add(newNode);
 
-    assertEquals(expectedList, testTree.view());
+    assertEquals(expectedList, testTree.levelOrderView());
   }
 
   @Test
@@ -109,7 +109,7 @@ public class TreeTest {
     Node newNode = new Node(2);
     testTree.add(newNode);
 
-    assertEquals(expectedList, testTree.view());
+    assertEquals(expectedList, testTree.levelOrderView());
   }
 
   @Test
@@ -132,10 +132,8 @@ public class TreeTest {
     Node newNode = new Node(2);
     testTree.add(newNode);
 
-    assertEquals(expectedList, testTree.view());
+    assertEquals(expectedList, testTree.levelOrderView());
   }
-
-
 
   @Test
   public void findsIncludedNode() throws Exception {
@@ -226,7 +224,7 @@ public class TreeTest {
 
     Tree testTree = createLongTestTree();
     testTree.removeNode(-1);
-    assertEquals(expectedValues, testTree.view());
+    assertEquals(expectedValues, testTree.levelOrderView());
   }
 
   @Test
@@ -243,7 +241,7 @@ public class TreeTest {
 
     Tree testTree = createLongTestTree();
     testTree.removeNode(-5);
-    assertEquals(expectedValues, testTree.view());
+    assertEquals(expectedValues, testTree.levelOrderView());
   }
 
   @Test
@@ -261,9 +259,60 @@ public class TreeTest {
 
     Tree testTree = createLongTestTree();
     testTree.removeNode(0);
-    assertEquals(expectedValues, testTree.view());
+    assertEquals(expectedValues, testTree.levelOrderView());
 
   }
+
+  @Test
+  public void inOrderTraversal() throws Exception {
+    Tree testTree = createLongTestTree();
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(-8);
+      add(-5);
+      add(-1);
+      add(0);
+      add(2);
+      add(5);
+      add(7);
+      add(17);
+
+    }};
+    assertEquals(expectedList, testTree.inorderView());
+  }
+
+
+  @Test
+  public void preOrderTraversal() throws Exception {
+    Tree testTree = createLongTestTree();
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(0);
+      add(-5);
+      add(-8);
+      add(-1);
+      add(5);
+      add(2);
+      add(7);
+      add(17);
+    }};
+    assertEquals(expectedList, testTree.preorderView());
+  }
+
+  @Test
+  public void postOrderTraversal() throws Exception {
+    Tree testTree = createLongTestTree();
+    List<Integer> expectedList = new ArrayList<Integer>() {{
+      add(-8);
+      add(-1);
+      add(-5);
+      add(2);
+      add(17);
+      add(7);
+      add(5);
+      add(0);
+    }};
+    assertEquals(expectedList, testTree.postorderView());
+  }
+
 
   private Tree createShortTestTree() throws Exception {
     Tree tree = new Tree() {

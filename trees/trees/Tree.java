@@ -24,25 +24,6 @@ public class Tree {
     this.root = rootNode;
   }
 
-  public List<Integer> view() {
-    List<Integer> valueCollection = new ArrayList<>();
-
-    List<Node> queue = new ArrayList<>();
-    queue.add(root);
-
-    while (queue.size() > 0) {
-      Node temp = queue.remove(0);
-      if (temp.getLeftNode() != null) {
-        queue.add(temp.getLeftNode());
-      }
-      if (temp.getRightNode() != null) {
-        queue.add(temp.getRightNode());
-      }
-      valueCollection.add(temp.getValue());
-    }
-    return valueCollection;
-  }
-
   public void add(Node newNode) throws Exception {
     if (newNode.getValue().equals(null)) { // can't add a node without a value
       return;
@@ -150,10 +131,6 @@ public class Tree {
     }
   }
 
-  public void removeNode(Node targetNode) throws Exception {
-    removeNode(targetNode.getValue());
-  }
-
   private void removeChildNode(Node parentNode, String direction) throws Exception {
 
     Node targetNode;
@@ -257,10 +234,104 @@ public class Tree {
     }
   }
 
-  //todo inorder traversal
+  /**
+   *  level-order traversal
+   * */
 
-  //todo preorder traversal
+  public List<Integer> levelOrderView() {
+    List<Integer> valuesCollection = new ArrayList<>();
 
-  //todo postorder traversal
+    List<Node> queue = new ArrayList<>();
+    queue.add(root);
+
+    while (queue.size() > 0) {
+      Node temp = queue.remove(0);
+      if (temp.getLeftNode() != null) {
+        queue.add(temp.getLeftNode());
+      }
+      if (temp.getRightNode() != null) {
+        queue.add(temp.getRightNode());
+      }
+      valuesCollection.add(temp.getValue());
+    }
+    return valuesCollection;
+  }
+
+  /**
+   * in-order traversal with recursive helper method
+   * */
+
+  public List<Integer> inorderView() {
+    if (root.getValue() == null) {
+      return new ArrayList<>();
+    }
+    return inOrderViewHelper(root, new ArrayList<Integer>());
+  }
+
+  /**
+   * pre-order traversal with recursive helper method
+   */
+
+  private List<Integer> inOrderViewHelper(Node node, List<Integer> valuesCollection) {
+
+    if (node == null) {
+      return valuesCollection;
+    }
+
+    inOrderViewHelper(node.getLeftNode(), valuesCollection);
+
+    valuesCollection.add(node.getValue());
+
+    inOrderViewHelper(node.getRightNode(), valuesCollection);
+
+    return valuesCollection;
+  }
+
+  public List<Integer> preorderView() {
+    if (root.getValue() == null) {
+      return new ArrayList<>();
+    }
+    return preOrderViewHelper(root, new ArrayList<Integer>());
+  }
+
+  private List<Integer> preOrderViewHelper(Node node, List<Integer> valuesCollection) {
+
+    if (node == null) {
+      return valuesCollection;
+    }
+    valuesCollection.add(node.getValue());
+
+    preOrderViewHelper(node.getLeftNode(), valuesCollection);
+
+    preOrderViewHelper(node.getRightNode(), valuesCollection);
+
+    return valuesCollection;
+  }
+
+  /**
+   * post-order traversal with recursive helper method
+   */
+
+  public List<Integer> postorderView() {
+    if (root.getValue() == null) {
+      return new ArrayList<>();
+    }
+    return postOrderViewHelper(root, new ArrayList<Integer>());
+  }
+
+  private List<Integer> postOrderViewHelper(Node node, List<Integer> valuesCollection) {
+
+    if (node == null) {
+      return valuesCollection;
+    }
+
+    postOrderViewHelper(node.getLeftNode(), valuesCollection);
+
+    postOrderViewHelper(node.getRightNode(), valuesCollection);
+
+    valuesCollection.add(node.getValue());
+
+    return valuesCollection;
+  }
 
 }
